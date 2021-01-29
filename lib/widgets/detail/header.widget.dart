@@ -50,36 +50,6 @@ class HeaderDetail extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            bottom: 12,
-            right: 25,
-            child: Container(
-              width: 40,
-              height: 40,
-              clipBehavior: Clip.antiAlias,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.5),
-                    blurRadius: 20,
-                    offset: Offset(1, 5),
-                    spreadRadius: 5.0,
-                  ),
-                ],
-              ),
-              child: FlatButton(
-                padding: EdgeInsets.all(10),
-                onPressed: this.onLikePress,
-                child: SvgPicture.asset(
-                  "assets/icons/heart.svg",
-                  color:
-                      this.isLike ? Colors.red : Colors.black.withOpacity(0.5),
-                ),
-              ),
-            ),
-          ),
         ],
       ),
     );

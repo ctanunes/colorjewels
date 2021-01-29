@@ -1,4 +1,4 @@
-import 'package:color_jewels_app/screens/detail.screen.dart';
+import 'package:color_jewels_app/screens/game1.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:color_jewels_app/models/language.model.dart';
 import 'package:color_jewels_app/widgets/home/popularcard.widget.dart';

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:color_jewels_app/screens/welcome.screen.dart';
 import 'package:flutter/services.dart';
+import 'package:color_jewels_app/screens/tts.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +18,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: WelcomeScreen(),
+      home: TTS(),
     );
   }
 }

@@ -45,13 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
 
   AppBar buildAppBar(Size size) {
     return AppBar(
-      backgroundColor: Colors.white,
       elevation: 0,
       leading: IconButton(
         highlightColor: Colors.green.withOpacity(0.2),
         icon: Icon(
           Icons.menu,
-          color: Colors.black.withOpacity(0.6),
+          color: Colors.white.withOpacity(0.6),
         ),
         onPressed: () {},
       ),
@@ -72,7 +71,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 "Color Jewels",
                 style: TextStyle(
                   fontSize: size.width * 0.06,
-                  color: Colors.black.withOpacity(0.7),
+                  color: Colors.white.withOpacity(0.7),
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -85,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
           onPressed: this.clickSearch,
           icon: Icon(
             this.isSearch ? Icons.close : Icons.search,
-            color: Colors.black,
+            color: Colors.white,
           ),
         )
       ],
