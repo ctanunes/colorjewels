@@ -1,23 +1,26 @@
 import 'package:color_jewels_app/models/language.model.dart';
+import 'package:color_jewels_app/screens/welcome.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:color_jewels_app/widgets/buttons/gradient.button.dart';
 import 'package:color_jewels_app/widgets/detail/header.widget.dart';
+import 'package:get/route_manager.dart';
 
 import '../models/language.model.dart';
+import '../models/question.model.dart';
 
-class DetailScreen extends StatefulWidget {
-  final Language language;
+class GameScreen extends StatefulWidget {
+  final Question question;
 
-  const DetailScreen({
+  const GameScreen({
     Key key,
-    @required this.language,
+    @required this.question,
   }) : super(key: key);
 
   @override
-  _DetailScreenState createState() => _DetailScreenState();
+  _GameScreenState createState() => _GameScreenState();
 }
 
-class _DetailScreenState extends State<DetailScreen> {
+class _GameScreenState extends State<GameScreen> {
   bool isLike = false;
 
   @override
@@ -32,20 +35,13 @@ class _DetailScreenState extends State<DetailScreen> {
           child: Column(
             children: <Widget>[
               HeaderDetail(
-                image: widget.language.image ?? "assets/images/detail.png",
+                image: widget.question.image ?? "assets/images/detail.png",
                 onBackPress: () {
                   Navigator.pop(context);
                 },
-                onLikePress: () {
-                  widget.language.isPlayed = !widget.language.isPlayed;
-                  setState(() {});
-                },
-                isLike: widget.language.isPlayed,
               ),
               ContentDetail(
-                title: widget.language.title ?? "Title",
-                location: widget.language.location ?? "Location",
-                description: widget.language.description ?? "",
+                question: widget.question.question ?? "Title",
                 onPress: () {
                   showDialog(
                     context: context,
@@ -57,7 +53,7 @@ class _DetailScreenState extends State<DetailScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Text(
-                              "This is the language ${widget.language.title}",
+                              "This is the language ${widget.question.question}",
                               style: TextStyle(fontSize: 20),
                             ),
                             Container(
@@ -65,7 +61,20 @@ class _DetailScreenState extends State<DetailScreen> {
                               child: GradientButton(
                                 text: "Confirm",
                                 onPress: () {
-                                  Navigator.of(context).pop();
+                                  if (widget.question.id==4){
+                                    Get.to(WelcomeScreen());
+                                  }else{
+                                  Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return GameScreen(
+                                        question: eng[widget.question.id],
+                                      );
+                                    },
+                                  ),
+                                );
+                  }
                                 },
                               ),
                             ),
@@ -85,15 +94,12 @@ class _DetailScreenState extends State<DetailScreen> {
 }
 
 class ContentDetail extends StatelessWidget {
-  final String title, location, description;
+  final String question;
   final Function onPress;
 
   const ContentDetail({
     Key key,
-    @required this.title,
-    @required this.location,
-    @required this.description,
-    @required this.onPress,
+    @required this.question, this.onPress,
   }) : super(key: key);
 
   @override
@@ -106,47 +112,10 @@ class ContentDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            this.title,
+            this.question,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: size.width * 0.06,
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.symmetric(vertical: 5),
-            child: Row(
-              children: <Widget>[
-                Icon(
-                  Icons.location_on,
-                  size: 13,
-                  color: Colors.green,
-                ),
-                SizedBox(width: 5),
-                Text(
-                  this.location,
-                  style: TextStyle(
-                    fontSize: size.width * 0.035,
-                    color: Colors.black.withOpacity(0.5),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: 25),
-          Text(
-            "Game screen",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: size.width * 0.05,
-            ),
-          ),
-          SizedBox(height: 5),
-          Text(
-            this.description,
-            style: TextStyle(
-              fontSize: size.width * 0.04,
-              color: Colors.black.withOpacity(0.6),
-              height: 1.3,
             ),
           ),
           SizedBox(height: 25),

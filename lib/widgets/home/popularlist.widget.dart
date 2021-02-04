@@ -1,7 +1,10 @@
 import 'package:color_jewels_app/screens/game1.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:color_jewels_app/models/language.model.dart';
+import 'package:color_jewels_app/models/question.model.dart';
 import 'package:color_jewels_app/widgets/home/popularcard.widget.dart';
+
+import 'package:flutter_tts/flutter_tts.dart';
 
 class PopularList extends StatefulWidget {
   final List<Language> listPopular;
@@ -15,6 +18,11 @@ class PopularList extends StatefulWidget {
 }
 
 class _PopularListState extends State<PopularList> {
+
+  FlutterTts flutterTts = FlutterTts();
+  Future _speak() async{
+    await flutterTts.speak("Hello World");
+  }
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -56,12 +64,13 @@ class _PopularListState extends State<PopularList> {
         setState(() {});
       },
       onPress: () {
+        _speak();
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) {
-              return DetailScreen(
-                language: widget.listPopular[index],
+              return GameScreen(
+                question: eng[0],
               );
             },
           ),

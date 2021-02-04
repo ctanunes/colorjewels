@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:color_jewels_app/models/language.model.dart';
 import 'package:color_jewels_app/widgets/home/popularlist.widget.dart';
 import 'package:color_jewels_app/widgets/home/recentlist.widget.dart';
+import 'package:color_jewels_app/screens/tts.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -11,6 +13,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   bool isSearch = false;
   String searchValue = '';
+  final tts = TTS();
+  FlutterTts flutterTts = FlutterTts();
+
+  Future _speak() async{
+    var result = await flutterTts.speak("Hello World");
+  }
 
   void clickSearch() {
     setState(() {
