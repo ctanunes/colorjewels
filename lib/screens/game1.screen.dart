@@ -41,7 +41,9 @@ class _GameScreenState extends State<GameScreen> {
                 },
               ),
               ContentDetail(
-                question: widget.question.question ?? "Title",
+                question: widget.question.question ?? "Question",
+                answer: widget.question.answer ?? "Answer",
+                typeOf: widget.question.typeOf ?? "typeOf",
                 onPress: () {
                   showDialog(
                     context: context,
@@ -61,20 +63,20 @@ class _GameScreenState extends State<GameScreen> {
                               child: GradientButton(
                                 text: "Confirm",
                                 onPress: () {
-                                  if (widget.question.id==4){
+                                  if (widget.question.id == 4) {
                                     Get.to(WelcomeScreen());
-                                  }else{
-                                  Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) {
-                                      return GameScreen(
-                                        question: eng[widget.question.id],
-                                      );
-                                    },
-                                  ),
-                                );
-                  }
+                                  } else {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) {
+                                          return GameScreen(
+                                            question: eng[widget.question.id],
+                                          );
+                                        },
+                                      ),
+                                    );
+                                  }
                                 },
                               ),
                             ),
@@ -93,15 +95,24 @@ class _GameScreenState extends State<GameScreen> {
   }
 }
 
-class ContentDetail extends StatelessWidget {
+class ContentDetail extends StatefulWidget {
   final String question;
   final Function onPress;
-
+  final String answer;
+  final String typeOf;
   const ContentDetail({
     Key key,
-    @required this.question, this.onPress,
+    @required this.question,
+    this.onPress,
+    this.answer,
+    this.typeOf,
   }) : super(key: key);
 
+  @override
+  _ContentDetailState createState() => _ContentDetailState();
+}
+
+class _ContentDetailState extends State<ContentDetail> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -112,44 +123,66 @@ class ContentDetail extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            this.question,
+            this.widget.question,
             style: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: size.width * 0.06,
             ),
           ),
           SizedBox(height: 25),
-          Row(
-            children: <Widget>[
-              Text(
-                "Something",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: size.width * 0.05,
-                  color: Colors.green[700].withOpacity(0.8),
-                ),
-              ),
-              SizedBox(width: 5),
-              Text(
-                "Something",
-                style: TextStyle(
-                  fontSize: size.width * 0.04,
-                  fontWeight: FontWeight.w400,
-                  color: Colors.black.withOpacity(0.6),
-                ),
-              ),
-            ],
-          ),
+          option(this.widget.typeOf, size),
+          SizedBox(height: 25),
           Container(
             margin: EdgeInsets.only(bottom: 30),
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: GradientButton(
               text: "Time to go!",
-              onPress: this.onPress,
+              onPress: this.widget.onPress,
             ),
           ),
         ],
       ),
     );
+  }
+
+  List<bool> isSelected = [false, false, false];
+
+  Widget option(String option, Size size) {
+    if (option == "Option") {
+      return StatefulBuilder(builder: (context, setState) {
+        return ToggleButtons(
+          children: <Widget>[
+            Icon(Icons.ac_unit),
+            Icon(Icons.call),
+            Icon(Icons.cake),
+          ],
+          onPressed: (int index) {
+            print(index);
+            setState(() {
+              for (int buttonIndex = 0;
+                  buttonIndex < isSelected.length;
+                  buttonIndex++) {
+                if (buttonIndex == index) {
+                  isSelected[buttonIndex] = true;
+                } else {
+                  isSelected[buttonIndex] = false;
+                }
+              }
+              print(isSelected);
+            });
+          },
+          isSelected: isSelected,
+        );
+      });
+    } else {
+      return Text(
+        "Something",
+        style: TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: size.width * 0.05,
+          color: Colors.green[700].withOpacity(0.8),
+        ),
+      );
+    }
   }
 }

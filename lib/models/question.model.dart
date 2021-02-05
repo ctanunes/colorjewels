@@ -17,10 +17,10 @@ class Question {
 List<Question> eng = [
   Question(
       id : 1,
-      question : "1 Say this color in English",
+      question : "1 How is this color called in English",
       image : "assets/images/green.png",
-      answer : "green",
-      typeOf : "Say",
+      answer : "Green",
+      typeOf : "Option",
   ),
   Question(
     id : 2,
