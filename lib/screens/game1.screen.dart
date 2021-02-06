@@ -1,11 +1,9 @@
-import 'package:color_jewels_app/models/language.model.dart';
 import 'package:color_jewels_app/screens/welcome.screen.dart';
 import 'package:flutter/material.dart';
 import 'package:color_jewels_app/widgets/buttons/gradient.button.dart';
 import 'package:color_jewels_app/widgets/detail/header.widget.dart';
 import 'package:get/route_manager.dart';
 
-import '../models/language.model.dart';
 import '../models/question.model.dart';
 
 class GameScreen extends StatefulWidget {
@@ -44,48 +42,7 @@ class _GameScreenState extends State<GameScreen> {
                 question: widget.question.question ?? "Question",
                 answer: widget.question.answer ?? "Answer",
                 typeOf: widget.question.typeOf ?? "typeOf",
-                onPress: () {
-                  showDialog(
-                    context: context,
-                    child: AlertDialog(
-                      content: Container(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text(
-                              "This is the language ${widget.question.question}",
-                              style: TextStyle(fontSize: 20),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 20),
-                              child: GradientButton(
-                                text: "Confirm",
-                                onPress: () {
-                                  if (widget.question.id == 4) {
-                                    Get.to(WelcomeScreen());
-                                  } else {
-                                    Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) {
-                                          return GameScreen(
-                                            question: eng[widget.question.id],
-                                          );
-                                        },
-                                      ),
-                                    );
-                                  }
-                                },
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                },
+                id: widget.question.id ?? "id",
               )
             ],
           ),
@@ -100,12 +57,13 @@ class ContentDetail extends StatefulWidget {
   final Function onPress;
   final String answer;
   final String typeOf;
+  final int id;
   const ContentDetail({
     Key key,
     @required this.question,
     this.onPress,
     this.answer,
-    this.typeOf,
+    this.typeOf, this.id,
   }) : super(key: key);
 
   @override
@@ -113,6 +71,7 @@ class ContentDetail extends StatefulWidget {
 }
 
 class _ContentDetailState extends State<ContentDetail> {
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -137,7 +96,7 @@ class _ContentDetailState extends State<ContentDetail> {
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: GradientButton(
               text: "Time to go!",
-              onPress: this.widget.onPress,
+              onPress: isItCorrect(this.widget.answer,this.widget.id),
             ),
           ),
         ],
@@ -152,9 +111,9 @@ class _ContentDetailState extends State<ContentDetail> {
       return StatefulBuilder(builder: (context, setState) {
         return ToggleButtons(
           children: <Widget>[
-            Icon(Icons.ac_unit),
-            Icon(Icons.call),
-            Icon(Icons.cake),
+            Text("Yellow"),
+            Text("Green"),
+            Text("Red"),
           ],
           onPressed: (int index) {
             print(index);
@@ -181,6 +140,59 @@ class _ContentDetailState extends State<ContentDetail> {
           fontWeight: FontWeight.bold,
           fontSize: size.width * 0.05,
           color: Colors.green[700].withOpacity(0.8),
+        ),
+      );
+    }
+  }
+
+ isItCorrect(answer,id){
+    int buttonSelected;
+    for (int buttonIndex = 0;
+    buttonIndex < isSelected.length;
+    buttonIndex++) {
+      if (isSelected[buttonIndex]=true) {
+        buttonSelected=buttonIndex;
+      }
+    }
+    if (answer==buttonSelected){
+      return showDialog(
+        context: context,
+        child: AlertDialog(
+          content: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "The answer is correct",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: GradientButton(
+                    text: "Confirm",
+                    onPress: () {
+                      if (id == 4) {
+                        Get.to(WelcomeScreen());
+                      } else {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return GameScreen(
+                                question: eng[id],
+                              );
+                            },
+                          ),
+                        );
+                      }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
         ),
       );
     }
