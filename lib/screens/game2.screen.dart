@@ -1,10 +1,13 @@
+import 'dart:async';
+import 'dart:io' show Platform;
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:color_jewels_app/screens/home.screen.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:color_jewels_app/widgets/buttons/gradient.button.dart';
 import 'package:color_jewels_app/widgets/detail/header.widget.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/route_manager.dart';
-import 'dart:async';
 import 'dart:math';
 
 import 'package:speech_to_text/speech_recognition_error.dart';
@@ -13,19 +16,19 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 import '../models/question.model.dart';
 
-class GameScreen extends StatefulWidget {
+class GameScreenPT extends StatefulWidget {
   final Question question;
 
-  const GameScreen({
+  const GameScreenPT({
     Key key,
     @required this.question,
   }) : super(key: key);
 
   @override
-  _GameScreenState createState() => _GameScreenState();
+  _GameScreenPTState createState() => _GameScreenPTState();
 }
 
-class _GameScreenState extends State<GameScreen> {
+class _GameScreenPTState extends State<GameScreenPT> {
   bool isLike = false;
 
   @override
@@ -126,9 +129,9 @@ class _ContentDetailState extends State<ContentDetail> {
       return StatefulBuilder(builder: (context, setState) {
         return ToggleButtons(
           children: <Widget>[
-            Text("Yellow"),
-            Text("Green"),
-            Text("Red"),
+            Text("Roxo"),
+            Text("Verde"),
+            Text("Amarelo"),
           ],
           onPressed: (int index) {
             print(index);
@@ -218,17 +221,40 @@ class _ContentDetailState extends State<ContentDetail> {
     }
   }
 
+  dynamic languages;
+  String language;
+  double volume = 0.5;
+  double pitch = 1.0;
+  double rate = 0.5;
+  bool isCurrentLanguageInstalled = false;
+
+  bool get isAndroid => !kIsWeb && Platform.isAndroid;
   FlutterTts flutterTts = FlutterTts();
+
   Future _speak() async{
-    await flutterTts.speak("Good job! You got the English jewel");
+    changedLanguageDropDownItem("pt_PT");
+    await flutterTts.speak("Bom trabalho! You got the Portuguese jewel");
   }
 
   Future _speakCorrect() async{
-    await flutterTts.speak("Your answer is correct");
+    changedLanguageDropDownItem("pt_PT");
+    await flutterTts.speak("A tua resposta está correcta");
+  }
+  void changedLanguageDropDownItem(String selectedType) {
+    setState(() {
+      language = selectedType;
+      flutterTts.setLanguage(language);
+      if (isAndroid) {
+        flutterTts
+            .isLanguageInstalled(language)
+            .then((value) => isCurrentLanguageInstalled = (value as bool));
+      }
+    });
   }
 
   Future _speakNotCorrect() async{
-    await flutterTts.speak("Sorry try again");
+    changedLanguageDropDownItem("pt_PT");
+    await flutterTts.speak("Resposta errada tenta outra vez");
   }
 
   Future _speakQuestion(question) async{
@@ -249,7 +275,7 @@ class _ContentDetailState extends State<ContentDetail> {
               children: [
 
                 Text(
-                  "Good job! You got the English jewel",
+                  "Bom trabalho! You got the Portuguese jewel",
                   style: TextStyle(fontSize: 20),
                 ),
                 Container(
@@ -278,7 +304,7 @@ class _ContentDetailState extends State<ContentDetail> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Your answer is correct",
+                  "A tua resposta está correcta",
                   style: TextStyle(fontSize: 20),
                 ),
                 Container(
@@ -290,8 +316,8 @@ class _ContentDetailState extends State<ContentDetail> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return GameScreen(
-                                question: eng[id],
+                              return GameScreenPT(
+                                question: pt[id],
                               );
                             },
                           ),
@@ -396,7 +422,7 @@ class _ContentDetailState extends State<ContentDetail> {
         listenFor: Duration(seconds: 5),
         pauseFor: Duration(seconds: 5),
         partialResults: false,
-        localeId: _currentLocaleId,
+        localeId: "pt_BR",
         onSoundLevelChange: soundLevelListener,
         cancelOnError: true,
         listenMode: ListenMode.confirmation);

@@ -16,10 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final tts = TTS();
   FlutterTts flutterTts = FlutterTts();
 
-  Future _speak() async{
-    var result = await flutterTts.speak("Hello World");
-  }
-
   void clickSearch() {
     setState(() {
       isSearch = !this.isSearch;

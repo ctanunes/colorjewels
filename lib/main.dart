@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: STT(),
+      home: WelcomeScreen(),
       initialRoute: '/',
       getPages: [
         GetPage(name: '/', page: () => WelcomeScreen()),
