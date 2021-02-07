@@ -40,9 +40,9 @@ class _GameScreenState extends State<GameScreen> {
               ),
               ContentDetail(
                 question: widget.question.question ?? "Question",
-                answer: widget.question.answer ?? "Answer",
                 typeOf: widget.question.typeOf ?? "typeOf",
-                id: widget.question.id ?? "id",
+                answer: widget.question.answer,
+                id: widget.question.id,
               )
             ],
           ),
@@ -52,10 +52,12 @@ class _GameScreenState extends State<GameScreen> {
   }
 }
 
+List<bool> isSelected = [false, false, false];
+
 class ContentDetail extends StatefulWidget {
   final String question;
   final Function onPress;
-  final String answer;
+  final int answer;
   final String typeOf;
   final int id;
   const ContentDetail({
@@ -95,8 +97,10 @@ class _ContentDetailState extends State<ContentDetail> {
             margin: EdgeInsets.only(bottom: 30),
             padding: const EdgeInsets.symmetric(vertical: 15),
             child: GradientButton(
+              onPress: () => {
+                isItCorrect(this.widget.answer,this.widget.id)
+              },
               text: "Time to go!",
-              onPress: isItCorrect(this.widget.answer,this.widget.id),
             ),
           ),
         ],
@@ -104,7 +108,7 @@ class _ContentDetailState extends State<ContentDetail> {
     );
   }
 
-  List<bool> isSelected = [false, false, false];
+
 
   Widget option(String option, Size size) {
     if (option == "Option") {
@@ -146,15 +150,10 @@ class _ContentDetailState extends State<ContentDetail> {
   }
 
  isItCorrect(answer,id){
-    int buttonSelected;
-    for (int buttonIndex = 0;
-    buttonIndex < isSelected.length;
-    buttonIndex++) {
-      if (isSelected[buttonIndex]=true) {
-        buttonSelected=buttonIndex;
-      }
-    }
-    if (answer==buttonSelected){
+    print(isSelected);
+    print(answer);
+    print("Is it correct");
+    if (isSelected[answer]==true){
       return showDialog(
         context: context,
         child: AlertDialog(
@@ -187,6 +186,34 @@ class _ContentDetailState extends State<ContentDetail> {
                           ),
                         );
                       }
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+    } else{
+      return showDialog(
+        context: context,
+        child: AlertDialog(
+          content: Container(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Sorry mate try again",
+                  style: TextStyle(fontSize: 20),
+                ),
+                Container(
+                  margin: EdgeInsets.only(top: 20),
+                  child: GradientButton(
+                    text: "Confirm",
+                    onPress: () {
+                      Navigator.of(context).pop();
                     },
                   ),
                 ),
