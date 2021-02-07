@@ -34,9 +34,7 @@ class _HomeScreenState extends State<HomeScreen> {
           height: size.height,
           child: Column(
             children: <Widget>[
-              RecentList(
-                listRecent: recents,
-              ),
+              returnRecent(),
               PopularList(
                 listPopular: recents,
               ),
@@ -45,6 +43,14 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
       ),
     );
+  }
+
+  returnRecent(){
+    if (jewels != null) {
+      return  RecentList(
+        listRecent: jewels,
+      );
+    }
   }
 
   AppBar buildAppBar(Size size) {

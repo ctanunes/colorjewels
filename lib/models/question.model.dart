@@ -50,7 +50,6 @@ List<Question> eng = [
     typeOf : "Sound",
   )
 ];
-
 List<Question> pt = [
   Question(
     id : 1,
@@ -82,6 +81,41 @@ List<Question> pt = [
     image : "assets/images/blue.png",
     answer : 1,
     answerText: "azul",
+    typeOf : "Sound",
+  )
+];
+
+List<Question> fr = [
+  Question(
+    id : 1,
+    question : "1 How is this color called in French",
+    image : "assets/images/black.png",
+    answer : 0,
+    answerText: "noir",
+    typeOf : "Option",
+  ),
+  Question(
+    id : 2,
+    question : "2 Try to say the name of this color in French - it's called rouge",
+    image : "assets/images/red.png",
+    answer : 1,
+    answerText: "rouge",
+    typeOf : "Sound",
+  ),
+  Question(
+    id : 3,
+    question : "3 How is this color called in French",
+    image : "assets/images/purple.png",
+    answer : 2,
+    answerText: "violet",
+    typeOf : "Option",
+  ),
+  Question(
+    id : 4,
+    question : "4 Try to say the name of this color in French - it's called bleu",
+    image : "assets/images/blue.png",
+    answer : 1,
+    answerText: "bleu",
     typeOf : "Sound",
   )
 ];

@@ -4,6 +4,7 @@ import 'package:color_jewels_app/widgets/buttons/gradient.button.dart';
 import 'package:color_jewels_app/widgets/detail/header.widget.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/route_manager.dart';
+import 'package:color_jewels_app/models/language.model.dart';
 import 'dart:async';
 import 'dart:math';
 
@@ -69,6 +70,7 @@ class ContentDetail extends StatefulWidget {
   final String typeOf;
   final String answerText;
   final int id;
+
   const ContentDetail({
     Key key,
     @required this.question,

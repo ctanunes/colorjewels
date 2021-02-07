@@ -17,6 +17,7 @@ class Language {
     this.description,
   });
 }
+List<Language> jewels = [];
 
 List<Language> recents = [
   Language(
@@ -35,7 +36,7 @@ List<Language> recents = [
     image: "assets/images/images-2.png",
     location: "ENG - London",
     rating: 4.5,
-    isPlayed: true,
+    isPlayed: false,
     description:
     "Learn colors in English!",
   ),

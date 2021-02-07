@@ -16,19 +16,19 @@ import 'package:speech_to_text/speech_to_text.dart';
 
 import '../models/question.model.dart';
 
-class GameScreenPT extends StatefulWidget {
+class GameScreenFR extends StatefulWidget {
   final Question question;
 
-  const GameScreenPT({
+  const GameScreenFR({
     Key key,
     @required this.question,
   }) : super(key: key);
 
   @override
-  _GameScreenPTState createState() => _GameScreenPTState();
+  _GameScreenFRState createState() => _GameScreenFRState();
 }
 
-class _GameScreenPTState extends State<GameScreenPT> {
+class _GameScreenFRState extends State<GameScreenFR> {
   bool isLike = false;
 
   @override
@@ -129,9 +129,9 @@ class _ContentDetailState extends State<ContentDetail> {
       return StatefulBuilder(builder: (context, setState) {
         return ToggleButtons(
           children: <Widget>[
-            Text("Roxo"),
-            Text("Verde"),
-            Text("Amarelo"),
+            Text("Noir"),
+            Text("Bleu"),
+            Text("Violet"),
           ],
           onPressed: (int index) {
             print(index);
@@ -232,13 +232,13 @@ class _ContentDetailState extends State<ContentDetail> {
   FlutterTts flutterTts = FlutterTts();
 
   Future _speak() async{
-    changedLanguageDropDownItem("pt");
-    await flutterTts.speak("Bom trabalho! You got the Portuguese jewel");
+    changedLanguageDropDownItem("fr");
+    await flutterTts.speak("Bon travail! You got the French jewel");
   }
 
   Future _speakCorrect() async{
-    changedLanguageDropDownItem("pt");
-    await flutterTts.speak("A tua resposta está correcta");
+    changedLanguageDropDownItem("fr");
+    await flutterTts.speak("Votre réponse est correcte");
   }
   void changedLanguageDropDownItem(String selectedType) {
     setState(() {
@@ -253,8 +253,8 @@ class _ContentDetailState extends State<ContentDetail> {
   }
 
   Future _speakNotCorrect() async{
-    changedLanguageDropDownItem("pt");
-    await flutterTts.speak("Resposta errada tenta outra vez");
+    changedLanguageDropDownItem("fr");
+    await flutterTts.speak("Mauvaise réponse, réessayez");
   }
 
   Future _speakQuestion(question) async{
@@ -275,7 +275,7 @@ class _ContentDetailState extends State<ContentDetail> {
               children: [
 
                 Text(
-                  "Bom trabalho! You got the Portuguese jewel",
+                  "Bon travail! You got the French jewel",
                   style: TextStyle(fontSize: 20),
                 ),
                 Container(
@@ -304,7 +304,7 @@ class _ContentDetailState extends State<ContentDetail> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "A tua resposta está correcta",
+                  "Votre réponse est correcte",
                   style: TextStyle(fontSize: 20),
                 ),
                 Container(
@@ -316,8 +316,8 @@ class _ContentDetailState extends State<ContentDetail> {
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return GameScreenPT(
-                                question: pt[id],
+                              return GameScreenFR(
+                                question: fr[id],
                               );
                             },
                           ),
@@ -344,7 +344,7 @@ class _ContentDetailState extends State<ContentDetail> {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "Sorry mate try again",
+                "Mauvaise réponse, réessayez",
                 style: TextStyle(fontSize: 20),
               ),
               Container(
@@ -422,7 +422,7 @@ class _ContentDetailState extends State<ContentDetail> {
         listenFor: Duration(seconds: 5),
         pauseFor: Duration(seconds: 5),
         partialResults: false,
-        localeId: "pt_BR",
+        localeId: "fr_FR",
         onSoundLevelChange: soundLevelListener,
         cancelOnError: true,
         listenMode: ListenMode.confirmation);

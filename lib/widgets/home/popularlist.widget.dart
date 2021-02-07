@@ -1,5 +1,6 @@
 import 'package:color_jewels_app/screens/game1.screen.dart';
 import 'package:color_jewels_app/screens/game2.screen.dart';
+import 'package:color_jewels_app/screens/game3.screen.dart';
 import 'package:color_jewels_app/screens/home.screen.dart';
 import 'package:color_jewels_app/screens/welcome.screen.dart';
 import 'package:flutter/material.dart';
@@ -63,6 +64,7 @@ class _PopularListState extends State<PopularList> {
         setState(() {});
       },
       onPress: () {
+        jewels.add(widget.listPopular[index]);
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -73,6 +75,8 @@ class _PopularListState extends State<PopularList> {
                 );
               } else if (index == 0) {
                 return GameScreenPT(question: pt[0]);
+              } else if (index == 2) {
+                return GameScreenFR(question: fr[0]);
               }
               return GameScreen(
                 question: eng[0],
